@@ -1,3 +1,5 @@
+@import '~rsuite/dist/rsuite.min.css';
+
 html, body, .root {
   height: 100%;
 }
@@ -14,7 +16,8 @@ body, .app {
 
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  /*background: #2e7c31;*/
+  background-color: #4db8ff;
   text-align: center;
 }
 
@@ -40,13 +43,12 @@ body, .app {
   font-weight: 400;
   margin: 0;
   padding: 10px;
-  color: #93cf98;
+  color: #eaeef6;
   text-decoration: none;
 }
 
-.search-titles:hover {
-  background-color: #4fc34b;
-  color: #ffffff;
+.search-titles:hover {  
+  color: #192abe;
 }
 
 .bookshelf {
@@ -236,4 +238,36 @@ button:active {
 
 .closebtn:hover {
   color: black;
+}
+
+.logged-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between; 
+  position: 'relative'; 
+  background-color: #4db8ff;
+  color: #ffffff;
+  height: 100%; 
+}
+
+.logged-user > div:first-child {
+  flex-basis: 85%;
+}
+
+.logged-user > div:last-child {
+  flex-basis: 15%;
+  color: black !important;
+}
+
+.logged-user > div:last-child:hover {
+  color: blue !important;
+}
+
+.login, .signout, .register {
+  width: 50%;
+  max-width: 640px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -1,44 +1,71 @@
 
-const api = "https://reactnd-books-api.udacity.com"
-
+// const api = "https://reactnd-books-api.udacity.com"
+// Backend url:
+const api = "http://localhost:5000";
 
 // Generate a unique token for storing your bookshelf data on the backend server.
 let token = localStorage.token
 if (!token)
   token = localStorage.token = Math.random().toString(36).substr(-8)
 
-const headers = {
-  'Accept': 'application/json',
-  'Authorization': token
+export const get = (bookId, jwt) => {  
+  return fetch(`${api}/books/${bookId}`, { 
+    headers: { 
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer " + jwt
+    }, 
+  })
+  .then(res => res.json())
+  .then(data => data.book)
+  .catch(e => {
+    console.error(e);
+  });
 }
 
-export const get = (bookId) =>
-  fetch(`${api}/books/${bookId}`, { headers })
-    .then(res => res.json())
-    .then(data => data.book)
+export const getAll = (jwt) => {  
+  return fetch(`${api}/books`, { 
+    headers: { 
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer " + jwt
+    }, 
+  })
+  .then(res => res.json())
+  .then(data => data.book)
+  .catch(e => {
+    console.error(e);
+  });
+}
 
-export const getAll = () =>
-  fetch(`${api}/books`, { headers })
-    .then(res => res.json())
-    .then(data => data.books)
-
-export const update = (book, shelf) =>
-  fetch(`${api}/books/${book.id}`, {
+export const update = (book, shelf, jwt) => {  
+  return fetch(`${api}/books/${book.id}`, {
     method: 'PUT',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
+    headers: { 
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer " + jwt
     },
     body: JSON.stringify({ shelf })
-  }).then(res => res.json())
+  })
+  .then(res => res.json())
+}
 
-export const search = (query) =>
-  fetch(`${api}/search`, {
-    method: 'POST',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
+export const search = (query, jwt) => {
+  console.log('Inside search(), query: ', query);
+  console.log('Inside search(), jwt: ', jwt);
+  return fetch(`${api}/search`, {
+    method: 'POST', 
+    headers: { 
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer " + jwt
     },
-    body: JSON.stringify({ query })
+    body: JSON.stringify({ query })        
   }).then(res => res.json())
-    .then(data => data.books)
+    .then(data => {
+      console.log('books: ', data);
+      return data.books;
+    })
+}
+  

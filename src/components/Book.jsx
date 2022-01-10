@@ -11,13 +11,13 @@ const Book = (props) => {
             width: 128,
             height: 192,
             backgroundImage:
-            `url(${props.info.imageLinks.thumbnail})`,
+            `url(${props.info.thumbnail})`,
         }}
         />
         <BookShelfChanger info={props.info} searchPage={props.info.shelf? false : true} />
       </div>
       <div className="book-title">{props.info.title}</div>
-      {props.info.authors ? (<div className="book-authors">{props.info.authors.join(', ')}</div>) : (<div></div>)}
+      {props.info.authors ? (<div className="book-authors">{props.info.authors}</div>) : (<div></div>)}
     </div>
   );
 }
